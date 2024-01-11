@@ -12,5 +12,7 @@ dioxus-router = "0.4.3"
 dioxus-signals = "0.4.3"
 dioxus-web = "0.4.3"
 log = "0.4.20"
+tracing = "0.1.40"
+tracing-wasm = "0.2.1"
 
 

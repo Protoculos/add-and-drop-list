@@ -1,9 +1,10 @@
 #![allow(non_snake_case)]
 use crate::models::item::ItemCard;
 use dioxus::prelude::*;
+use dioxus_signals::*;
 
 #[component]
-pub fn ItemCardUi(cx: Scope, card: ItemCard, id: usize) -> Element {
+pub fn ItemCardUi(cx: Scope, card: ItemCard, id: usize, signal: Signal<Vec<ItemCard>>) -> Element {
     render! {
         li {
             class: "list bg-[#e91e63] h-14 m-7 text-rose-100 cursor-grab flex flex-row items-center gap-3",
@@ -17,7 +18,9 @@ pub fn ItemCardUi(cx: Scope, card: ItemCard, id: usize) -> Element {
             "{card.title} {id}"
             svg {
                 class: "fill-current text-white w-7 ml-2",
-                // onclick: move |_| { signal.write().remove(*id) },
+                onclick: move |_| {
+                    signal.write().remove(*id);
+                },
                 xmlns: card.svgRight.xmlns,
                 view_box: card.svgRight.view_box,
                 path { d: card.svgRight.path.d }

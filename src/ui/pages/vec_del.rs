@@ -32,6 +32,7 @@ pub fn DelFromVec(cx: Scope) -> Element {
                                     ItemCardUi  {
                                         card: *card,
                                         id: id,
+                                        signal: data.left_list,
                                     }
                                 }
                             })
@@ -50,6 +51,7 @@ pub fn DelFromVec(cx: Scope) -> Element {
                                 ItemCardUi  {
                                     card: card.clone(),
                                     id: id,
+                                    signal: data.right_list,
                                 }
                             }
                         })

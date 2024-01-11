@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+// use crate::app::Level;
 use crate::models::item::ItemCard;
 use crate::route::Route;
 use dioxus::prelude::*;
@@ -30,6 +31,12 @@ pub fn App(cx: Scope) -> Element {
     let use_right_list: Signal<Vec<ItemCard>> =
         use_signal(cx, || (0..=3).map(|_| ItemCard::TextCard("Card")).collect());
     use_context_provider(cx, || ApplicationData::new(use_left_list, use_right_list));
+
+    tracing_wasm::set_as_global_default_with_config(
+        tracing_wasm::WASMLayerConfigBuilder::new()
+            .set_max_level(tracing::Level::TRACE)
+            .build(),
+    );
 
     render! { Router::<Route> {} }
 }
