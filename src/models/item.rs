@@ -1,6 +1,6 @@
 use super::svg::*;
 
-#[derive(PartialEq, Debug, Clone)]
+#[derive(PartialEq, Debug, Clone, Copy)]
 pub struct ItemCard {
     pub title: &'static str,
     pub draggable: bool,
