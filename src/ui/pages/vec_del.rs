@@ -9,12 +9,6 @@ use dioxus::prelude::*;
 pub fn DelFromVec(cx: Scope) -> Element {
     let data = use_app_data(cx);
 
-    let left_vec: Vec<ItemCard> = (0..=3).map(|_| ItemCard::TextCard("Card")).collect();
-    let right_vec: Vec<ItemCard> = (0..=3).map(|_| ItemCard::TextCard("Card")).collect();
-
-    *data.left_vec.write() = left_vec;
-    *data.right_vec.write() = right_vec;
-
     render! {
         section { class: "flex flex-row",
             NavBar {}
@@ -25,7 +19,7 @@ pub fn DelFromVec(cx: Scope) -> Element {
                         button {
                             class: "p-2 text-white bg-red-600 hover:bg-red-500 rounded-md",
                             onclick: move |_| {
-                                data.left_vec.write().insert(0, ItemCard::TextCard("Above card"));
+                                data.left_list.write().insert(0, ItemCard::TextCard("Above card"));
                             },
                             "Add above"
                         }
@@ -33,10 +27,10 @@ pub fn DelFromVec(cx: Scope) -> Element {
                             class: "w-64 border-2 border-dashed text-white",
                             id: "left",
                             "box 1"
-                            data.left_vec.read().iter().enumerate().map(|(id, card)| {
+                            data.left_list.read().iter().enumerate().map(|(id, card)| {
                                 render!{
                                     ItemCardUi  {
-                                        card: card.clone(),
+                                        card: *card,
                                         id: id,
                                     }
                                 }
@@ -51,7 +45,7 @@ pub fn DelFromVec(cx: Scope) -> Element {
                                 ondrop: move |event| log::info!("Dragover! Event: {event:?}"),
                                 id: "right",
                                 "box 2"
-                                data.right_vec.read().iter().enumerate().map(|(id, card)| {
+                                data.right_list.read().iter().enumerate().map(|(id, card)| {
                             render!{
                                 ItemCardUi  {
                                     card: card.clone(),
@@ -63,7 +57,7 @@ pub fn DelFromVec(cx: Scope) -> Element {
                             button {
                                 class: "flex-0 p-2 text-white bg-red-600 hover:bg-red-500 rounded-md",
                                 onclick: move |_| {
-                                    data.right_vec.write().push(ItemCard::TextCard("Bottom Card"));
+                                    data.right_list.write().push(ItemCard::TextCard("Bottom Card"));
                                 },
                                 "Add bottom"
                             }
